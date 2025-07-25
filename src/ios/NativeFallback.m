@@ -1,16 +1,26 @@
 #import <Cordova/CDVPlugin.h>
 #import <WebKit/WebKit.h>
 
- @interface NativeFallback : CDVPlugin <WKNavigationDelegate>
- @end @implementation NativeFallback
+@interface NativeFallback : CDVPlugin <WKNavigationDelegate>
+
+@property (nonatomic, weak) id<WKNavigationDelegate> originalNavigationDelegate;
+
+@end
+
+@implementation NativeFallback
 
 - (void)pluginInitialize {
     WKWebView* webView = (WKWebView*)self.webView;
+    self.originalNavigationDelegate = webView.navigationDelegate;
     webView.navigationDelegate = self;
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     [self showNativeAlert];
+
+    if ([self.originalNavigationDelegate respondsToSelector:@selector(webView:didFailProvisionalNavigation:withError:)]) {
+        [self.originalNavigationDelegate webView:webView didFailProvisionalNavigation:navigation withError:error];
+    }
 }
 
 - (void)showNativeAlert {
@@ -27,4 +37,18 @@
     UIViewController* root = UIApplication.sharedApplication.delegate.window.rootViewController;
     [root presentViewController:alert animated:YES completion:nil];
 }
- @end
+
+- (id)forwardingTargetForSelector:(SEL)aSelector
+{
+    if ([self.originalNavigationDelegate respondsToSelector:aSelector]) {
+        return self.originalNavigationDelegate;
+    }
+    return [super forwardingTargetForSelector:aSelector];
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+    return [super respondsToSelector:aSelector] || [self.originalNavigationDelegate respondsToSelector:aSelector];
+}
+
+@end
