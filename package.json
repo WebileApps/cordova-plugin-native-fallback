@@ -1,0 +1,22 @@
+{
+  "name": "cordova-plugin-native-fallback",
+  "version": "0.1.0",
+  "description": "A Cordova plugin that provides a native fallback for network errors.",
+  "cordova": {
+    "id": "cordova-plugin-native-fallback",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "network",
+    "fallback",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Your Name",
+  "license": "Apache-2.0"
+}

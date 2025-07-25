@@ -1,0 +1,26 @@
+<plugin id="cordova-plugin-native-fallback" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+  <name>NativeFallback</name>
+  <js-module src="www/native-fallback.js" name="NativeFallback">
+    <clobbers target="cordova.plugins.nativeFallback" />
+  </js-module>
+
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="NativeFallback">
+        <param name="android-package" value="com.example.nativefallback.NativeFallback" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+    <source-file src="src/android/NativeFallback.java" target-dir="src/com/example/nativefallback" />
+  </platform>
+
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="NativeFallback">
+        <param name="ios-package" value="NativeFallback" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+    <source-file src="src/ios/NativeFallback.m" />
+  </platform>
+</plugin>

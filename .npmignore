@@ -1,0 +1,16 @@
+# Exclude development and example directories
+@server/
+example/
+
+# Exclude node modules and lock files
+node_modules/
+package-lock.json
+
+# Exclude build artifacts that might be generated in the root
+platforms/
+plugins/
+
+# Exclude log files
+*.log
+
+MEMORY.md
