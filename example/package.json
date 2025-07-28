@@ -15,7 +15,7 @@
   "devDependencies": {
     "cordova-android": "^14.0.1",
     "cordova-ios": "^7.1.1",
-    "cordova-plugin-native-fallback": "file:.."
+    "cordova-plugin-native-fallback": "file:../plugin"
   },
   "cordova": {
     "platforms": [
